@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% if client %}Editar{% else %}Novo{% endif %} Cliente</title>
+    <style>
+        body { font-family: Arial; margin: 40px; }
+        label { display: block; margin: 10px 0 5px; }
+        input { width: 100%; padding: 8px; margin-bottom: 10px; }
+        button { padding: 10px 20px; background: #0066cc; color: white; border: none; cursor: pointer; }
+        a { color: #666; }
+    </style>
+</head>
+<body>
+    <h1>{% if client %}Editar Cliente{% else %}Novo Cliente{% endif %}</h1>
+    <form method="post">
+        <label>Nome *</label>
+        <input type="text" name="name" value="{{ client.name if client else '' }}" required>
+        
+        <label>Email</label>
+        <input type="email" name="email" value="{{ client.email if client else '' }}">
+        
+        <label>Telefone</label>
+        <input type="text" name="phone" value="{{ client.phone if client else '' }}">
+        
+        <button type="submit">Salvar</button>
+        <a href="{{ url_for('list_clients') }}">Cancelar</a>
+    </form>
+</body>
+</html>
