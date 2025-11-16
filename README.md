@@ -9,7 +9,7 @@ Tarefa Cruzeiro do sul - Gestão de Clientes
 
 > **Disciplina**: Projeto Integrador Transdisciplinar em Engenharia de Software II  
 > **Instituição**: Cruzeiro do Sul Virtual  
-> **Professor**: Prof. Me. Artur Marques  
+> **Professor**: Alexander gobbato & Joaquim felix 
 > **Estudante**: **Tiago Aparecido**  
 > **Data**: Novembro de 2025
 
