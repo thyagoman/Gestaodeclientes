@@ -1,5 +1,4 @@
-# app.py (CORRIGIDO PARA FLASK 3.1.2)
-
+# app.py (CORRIGIDO PARA FLASK 3.1.2 + ROTA RAIZ)
 from flask import Flask, render_template, request, redirect, url_for, abort
 import sqlite3
 from pathlib import Path
@@ -23,12 +22,15 @@ def init_db():
         )''')
         c.commit()
 
-# ========= INICIALIZAÇÃO (CORRIGIDO) =========
-# Removido @app.before_first_request
+# ========= INICIALIZAÇÃO =========
 with app.app_context():
     init_db()  # Cria o banco na primeira execução
 
 # ========= ROTAS =========
+@app.route('/')
+def index():
+    return redirect(url_for('list_clients'))  # <--- ROTA RAIZ ADICIONADA
+
 @app.route('/clients')
 def list_clients():
     with get_conn() as c:
@@ -54,23 +56,20 @@ def edit_client(id):
     with get_conn() as c:
         cur = c.execute('SELECT * FROM client WHERE id = ?', (id,))
         client = cur.fetchone()
-
     if client is None:
         abort(404)
-
     if request.method == 'POST':
         name = request.form['name']
         email = request.form.get('email', '')
         phone = request.form.get('phone', '')
-
         with get_conn() as c:
             c.execute('UPDATE client SET name = ?, email = ?, phone = ? WHERE id = ?',
                       (name, email, phone, id))
             c.commit()
         return redirect(url_for('list_clients'))
-
     return render_template('form.html', client=client)
 
 # ========= EXECUÇÃO =========
 if __name__ == '__main__':
+    app.run(debug=True)
     app.run(debug=True)
